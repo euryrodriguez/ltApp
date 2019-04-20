@@ -1,0 +1,22 @@
+{
+  "name": "lotteryapp",
+  "version": "1.0.0",
+  "description": "Esta aplicacion guarda los numeros que salieron en la loteria entre dos rangos de fecha ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node downloader.js"
+  },
+  "author": "Eury Rodriguez",
+  "license": "ISC",
+  "dependencies": {
+    "after-load": "^1.0.4",
+    "express": "^4.16.4",
+    "node-html-parser": "^1.1.15",
+    "request-promise": "^4.2.4",
+    "@tensorflow/tfjs": "^1.1.0",
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.0",
+    "popper.js": "^1.15.0"
+  }
+}
