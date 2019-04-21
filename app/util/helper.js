@@ -36,6 +36,8 @@ module.exports = (IMPORTS) => {
                     };
 
                     if (!obj.ifExits(allData, objectNumber)) {
+                        console.log("Nuevos numeros:");
+                        console.log(objectNumber);
                         allData.push(objectNumber);
                     }
 
@@ -47,6 +49,11 @@ module.exports = (IMPORTS) => {
 
                 }
             }
+        },
+        getRandomNumberBetweenTwoValues: (min, max)=>{
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
         }
     };
 

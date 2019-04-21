@@ -13,7 +13,7 @@ let pathJSON = "./app/data/data.json",
 
 app.get('/', (req, res) => {
 
-    let start = new Date("02/19/2019"),
+    let start = new Date("01/01/2019"),
         end = new Date("04/19/2019"),
         loop = new Date(start),
         loopCounter = 0,
@@ -31,10 +31,14 @@ app.get('/', (req, res) => {
         urls.push(url);
 
         if (loopCounter == diff_in_days) {
-            const promises = urls.map(url => IMPORTS.rp(url));
-            Promise.all(promises).then((data) => {
-                HELPER.saveData(data, allData, pathJSON);
-            });
+            try {
+                const promises = urls.map(url => IMPORTS.rp(url));
+                Promise.all(promises).then((data) => {
+                    HELPER.saveData(data, allData, pathJSON);
+                });
+            }catch (e) {
+                console.log(e)
+            }
         }
 
         loopCounter++;
@@ -46,4 +50,3 @@ app.listen(port, () => {
     console.log('http://localhost:' + port + ' - listening on port 3000!');
     console.log("Total de registros: "+allData.length);
 });
-
