@@ -2,7 +2,7 @@ import * as tf from "@tensorflow/tfjs/dist/index";
 
 module.exports = () => {
     const obj = {
-        init: (aTrain, bTrain, cTrain, aRandom, bRandom, cRandom, LENGTH) => {
+        calculate: (xTrain, yTrain) => {
 
             //Formula: h(x) = B0 + B1 * CGPA
 
@@ -40,26 +40,8 @@ module.exports = () => {
             //#First
             for (let index = 0; index < numIterations; index++) {
                 optimizer.minimize(() => {
-                    const predsYs = predict(aTrain);
-                    const e = loss(predsYs, aRandom);
-                    errors.push(e.dataSync());
-                    return e;
-                });
-            }
-            //#Second
-            for (let index = 0; index < numIterations; index++) {
-                optimizer.minimize(() => {
-                    const predsYs = predict(bTrain);
-                    const e = loss(predsYs, bRandom);
-                    errors.push(e.dataSync());
-                    return e;
-                });
-            }
-            //#Third
-            for (let index = 0; index < numIterations; index++) {
-                optimizer.minimize(() => {
-                    const predsYs = predict(cTrain);
-                    const e = loss(predsYs, cRandom);
+                    const predsYs = predict(xTrain);
+                    const e = loss(predsYs, yTrain);
                     errors.push(e.dataSync());
                     return e;
                 });
@@ -73,36 +55,20 @@ module.exports = () => {
 
             //---------------------------------
 
-            const aTest = tf.tensor1d(aTrain);
-            const aRtest = tf.tensor1d(aRandom);
-
-            //---------------------------------
-
-            const bTest = tf.tensor1d(bTrain);
-            const bRtest = tf.tensor1d(bRandom);
-
-            //---------------------------------
-
-            const cTest = tf.tensor1d(cTrain);
-            const cRtest = tf.tensor1d(cRandom);
+            const aTest = tf.tensor2d(xTrain);
+            const aRtest = tf.tensor2d(yTrain);
 
             const predictionsForA = predict(aTest);
             const errorsA = tf.losses.meanSquaredError(aRtest, predictionsForA);// Error cuadratico medio
-
-            const predictionsForB = predict(bTest);
-            const errorsB = tf.losses.meanSquaredError(bRtest, predictionsForB);// Error cuadratico medio
-
-            const predictionsForC = predict(cTest);
-            const errorsC = tf.losses.meanSquaredError(cRtest, predictionsForC);// Error cuadratico medio
 
             //console.log("El error cuadratico medio es " + errorsA);
             //console.log("Peso1:"+ m);
             //console.log("Sesgo1:"+ b);
 
             console.log("Predicciones A: " + predictionsForA);
-            console.log("Predicciones B: " + predictionsForB);
-            console.log("Predicciones C: " + predictionsForC);
+
         },
+
         predict: (x, m, b) => {
             return tf.tidy(() => {
                 return m.mul(x).add(b);

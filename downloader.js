@@ -13,8 +13,8 @@ let pathJSON = "./app/data/data.json",
 
 app.get('/', (req, res) => {
 
-    let start = new Date("01/01/2019"),
-        end = new Date("04/19/2019"),
+    let start = new Date("01/02/2019"),
+        end = new Date("04/26/2019"),
         loop = new Date(start),
         loopCounter = 0,
         day_as_milliseconds = 86400000,
@@ -50,3 +50,4 @@ app.listen(port, () => {
     console.log('http://localhost:' + port + ' - listening on port 3000!');
     console.log("Total de registros: "+allData.length);
 });
+
