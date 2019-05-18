@@ -14,7 +14,7 @@ let pathJSON = "./app/data/data.json",
 app.get('/', (req, res) => {
 
     let start = new Date("01/02/2019"),
-        end = new Date("04/26/2019"),
+        end = new Date("05/12/2019"),
         loop = new Date(start),
         loopCounter = 0,
         day_as_milliseconds = 86400000,
