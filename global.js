@@ -1,0 +1,1 @@
+global.rootPath = __dirname;

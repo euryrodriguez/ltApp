@@ -18,7 +18,7 @@ const dt = require('datatables.net')();
 
 
 const UTIL = require("./app/util/util")();
-const DATA = require("./app/data/data");
+const DATA = require("./app/data/national");
 const LENGTH = DATA.length;
 const TWENTYPERCENT = parseInt(LENGTH * 0.20); //20 porciento de los registros
 
@@ -115,7 +115,7 @@ $(document).ready(function () {
 
         setTimeout(() => {
             UTIL.calculate(params).then((predictions) => {
-                console.log(predictions);
+                console.log(predictions.argMax().dataSync());
                 $('#result').html("<br>" + UTIL.getListOfNumbers(predictions.argMax().dataSync()));
                 UTIL.openSuccessModal(modal, predictions.argMax().dataSync());
                 button.stop();
