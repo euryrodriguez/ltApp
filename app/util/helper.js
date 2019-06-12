@@ -31,7 +31,7 @@ module.exports = (IMPORTS) => {
 
                     let sessionDetails = bloque.querySelector(".session-details"),
                         sessionDetailsText = sessionDetails.rawText,
-                        gameScores = quinielaPale.querySelector(".game-scores"),
+                        gameScores = bloque.querySelector(".game-scores"),
                         numbers = gameScores.rawText;
 
                     numbers = numbers.match(/\d+/g).map(n => parseInt(n));
