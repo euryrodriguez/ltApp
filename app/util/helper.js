@@ -91,6 +91,163 @@ module.exports = (IMPORTS) => {
                         resolve(true);
                     });
             });
+        },
+        getTodayNumbersFromPastYears: (params) => {
+            return new Promise((resolve, reject) => {
+
+                let CONNECTION = params.connection;
+
+                CONNECTION.query(`SELECT * FROM ${params.table} WHERE DAYOFMONTH(nd) = ${params.day} AND MONTH(nd) = ${params.month};`,
+                    function (error, results, fields) {
+                        resolve(results);
+                    });
+            });
+        },
+        calc: async (resultSet) => {
+            return new Promise((resolve, reject) => {
+                let arrN1 = [],
+                    arrN2 = [],
+                    arrN3 = [],
+                    averageN1 = 0,
+                    averageN2 = 0,
+                    averageN3 = 0,
+                    lengthly = resultSet.length,
+                    loopCounter = 1;
+                for (let i = 0; i < lengthly; i++) {
+                    let n1 = resultSet[i].n1,
+                        n2 = resultSet[i].n2,
+                        n3 = resultSet[i].n3;
+
+                    arrN1.push(n1);
+                    arrN2.push(n2);
+                    arrN3.push(n3);
+
+                    averageN1+=parseInt(n1);
+                    averageN2+=parseInt(n2);
+                    averageN3+=parseInt(n3);
+
+                    if (loopCounter == lengthly) {
+
+                       /* console.log("Promedio numero 1:"+parseInt(averageN1 / lengthly).toString());
+                        console.log("Promedio numero 2:"+parseInt(averageN2 / lengthly).toString());
+                        console.log("Promedio numero 3:"+parseInt(averageN3 / lengthly).toString());*/
+
+                        obj.applyModule10(arrN1).then((resultArrN1) => {
+                            obj.applyModule10(arrN2).then((resultArrN2) => {
+                                obj.applyModule10(arrN3).then((resultArrN3) => {
+                                    resolve({
+                                        resultArrN1: resultArrN1,
+                                        resultArrN2: resultArrN2,
+                                        resultArrN3: resultArrN3,
+                                    });
+                                })
+                            });
+                        });
+                    }
+
+                    loopCounter++;
+                }
+            })
+        },
+        applyModule10: (arrN) => {
+            return new Promise((resolve, reject) => {
+
+                let aux = true,
+                    sum = 0,
+                    index = 0,
+                    finalObject = {},
+                    loopCounter = 1;
+
+                for (let num of arrN) {
+
+                    let product = 0,
+                        currentN = parseInt(num);
+
+                    if (aux) {
+                        product = currentN * 1;
+                        //  console.log("product = " + currentN + " * 1 = " + (currentN * 1));
+                    } else {
+                        product = currentN * 2;
+                        // console.log("product = " + currentN + " * 2 = " + (currentN * 2));
+                    }
+
+                    if (product >= 100) {
+                        let reduced = obj.reduceNumber(product.toString());
+                        sum = sum + reduced;
+                         //console.log("El numero " + product + " fue reducido a:" + reduced)
+                    } else {
+                        sum = sum + product;
+                    }
+
+                    aux = !aux;
+
+                    if (loopCounter == arrN.length) {
+                        //let module = sum % 10;
+                        let module = sum % 10;
+                        console.log("module = " + sum + "%" + 10 + " = " + module);
+                        if (module > 0) {
+                            let substract = 10 - module;
+                            substract = (substract < 0) ? substract * -1 : substract;
+                            finalObject['number'] = substract;
+                        } else {
+                            finalObject['number'] = module;
+                        }
+                        resolve(finalObject);
+                    }
+
+                    loopCounter++;
+                    index++;
+                }
+            });
+        },
+        reduceNumber: (number) => {
+
+            let newNumber = 0;
+
+            for (let num of number.split('')) {
+                let currentN = parseInt(num);
+                newNumber = currentN + newNumber;
+            }
+
+            return newNumber;
+
+        },
+        getNationalAndPaleNumbers: (params) => {
+            return new Promise((resolve, reject) => {
+                let day = parseInt(params.day),
+                    values = Object.values(params.digits),
+                    products = [];
+                values.forEach((element, index) => {
+                    let multiply = 0,
+                        currentNumber = parseInt(element.number);
+                    multiply = (day * currentNumber);
+                    products.push(multiply);
+                    //console.log(currentNumber + " * " + day + " = " + (multiply));
+                    if (values.length == (index + 1)) {
+                        resolve(obj.iterateMultplicactions(products));
+                    }
+                });
+            });
+        },
+        iterateMultplicactions: (numbers) => {
+            let newNumbers = [];
+            for (let i = 0; i < numbers.length; i++) {
+                let current = numbers[i].toString();
+                console.log("posicion "+i+" sera eliminada del string: "+current);
+                newNumbers.push(obj.removeByIndex(current, (i+1)));
+            }
+            return newNumbers;
+        },
+        removeByIndex: (str, index) => {
+            if(str.length>2){
+                if (index == 0) {
+                    return str.slice(1)
+                } else {
+                    return str.slice(0, index - 1) + str.slice(index);
+                }
+            }else{
+                return str;
+            }
         }
     };
 

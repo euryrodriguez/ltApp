@@ -6,6 +6,9 @@ import "font-awesome/css/font-awesome.min.css"
 import "ladda/dist/ladda.min.css"
 import * as Ladda from 'ladda';
 
+const GLOBAL = require("./global");
+const TODAY = new Date();
+
 
 //Init Jquery
 const jquery = require("jquery");
@@ -42,7 +45,7 @@ for (let i = 0; i < (LENGTH - TWENTYPERCENT); i++) {
     const C = numbers[2];
 
     xTrain[i] = [A, B];
-    yTrain[i] =  [
+    yTrain[i] = [
         UTIL.getRandomNumberBetweenTwoValues(0, 100),
         UTIL.getRandomNumberBetweenTwoValues(0, 100)
     ];
@@ -94,40 +97,8 @@ $(document).ready(function () {
         });
     });
 
-    const modal = $('#modalSuccess'),
-        calculateButton = $('#calculate');
-
-    calculateButton.on('click', (e) => {
-
-        e.preventDefault();
-
-        let params = {
-                days: parseInt($('#days').val()),
-                activation: $('#activation').val(),
-                learningRate: parseFloat($('#learningRate').val()),
-                iterations: parseInt($('#iterations').val()),
-                xTrain: xTrain,
-                yTrain: yTrain,
-                allData: allData,
-                twPercent: TWENTYPERCENT
-            },
-            button = UTIL.initProcess(calculateButton[0]);
-
-        setTimeout(() => {
-            UTIL.calculate(params).then((predictions) => {
-                console.log(predictions.argMax().dataSync());
-                $('#result').html("<br>" + UTIL.getListOfNumbers(predictions.argMax().dataSync()));
-                UTIL.openSuccessModal(modal, predictions.argMax().dataSync());
-                button.stop();
-            });
-        }, 3000);
-    });
-
-    const updateTableButton = $('#update-table');
-
-    updateTableButton.on('click', (e) => {
-        e.preventDefault();
-
-    });
+    const todayToString = TODAY.toLocaleDateString("es-ES").replace(/\//g, "-");
+    const arrTodayDate = todayToString.split('-');
+    const nationalTable = $('#national-table');
 
 });

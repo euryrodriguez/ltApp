@@ -4,17 +4,10 @@ const parse = require('node-html-parser');
 const fs = require('fs');
 const rp = require('request-promise');
 const request = require('request');
-const mysql = require('mysql');
 const inquirer = require('inquirer');
 
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'phpmyadmin',
-    password: '123456',
-    database: 'lotoApp'
-});
-
+const connection = require("./conexion").con;
 const pathsJSONS = {
     national: {
         path: global.rootPath + "/app/data/national.json", title: 'Lotería Nacional'
