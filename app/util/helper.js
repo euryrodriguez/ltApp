@@ -103,7 +103,7 @@ module.exports = (IMPORTS) => {
                     });
             });
         },
-        calc: async (resultSet) => {
+        calc: async (resultSet, mode) => {
             return new Promise((resolve, reject) => {
                 let arrN1 = [],
                     arrN2 = [],
@@ -122,23 +122,35 @@ module.exports = (IMPORTS) => {
                     arrN2.push(n2);
                     arrN3.push(n3);
 
-                    averageN1+=parseInt(n1);
-                    averageN2+=parseInt(n2);
-                    averageN3+=parseInt(n3);
+                    averageN1 += parseInt(n1);
+                    averageN2 += parseInt(n2);
+                    averageN3 += parseInt(n3);
 
                     if (loopCounter == lengthly) {
 
-                       /* console.log("Promedio numero 1:"+parseInt(averageN1 / lengthly).toString());
-                        console.log("Promedio numero 2:"+parseInt(averageN2 / lengthly).toString());
-                        console.log("Promedio numero 3:"+parseInt(averageN3 / lengthly).toString());*/
+                        /* console.log("Promedio numero 1:" + parseInt(averageN1 / lengthly).toString());
+                         console.log("Promedio numero 2:" + parseInt(averageN2 / lengthly).toString());
+                         console.log("Promedio numero 3:" + parseInt(averageN3 / lengthly).toString());*/
 
-                        obj.applyModule10(arrN1).then((resultArrN1) => {
-                            obj.applyModule10(arrN2).then((resultArrN2) => {
-                                obj.applyModule10(arrN3).then((resultArrN3) => {
+                        obj.applyModule10(arrN1, mode).then((resultArrN1) => {
+                            obj.applyModule10(arrN2, mode).then((resultArrN2) => {
+                                obj.applyModule10(arrN3, mode).then((resultArrN3) => {
                                     resolve({
-                                        resultArrN1: resultArrN1,
-                                        resultArrN2: resultArrN2,
-                                        resultArrN3: resultArrN3,
+                                        result: {
+                                            resultArrN1: resultArrN1,
+                                            resultArrN2: resultArrN2,
+                                            resultArrN3: resultArrN3,
+                                        },
+                                        average: [
+                                            parseInt(averageN1 / lengthly),
+                                            parseInt(averageN2 / lengthly),
+                                            parseInt(averageN3 / lengthly),
+                                        ],
+                                        arrNumbers: [
+                                            arrN1,
+                                            arrN2,
+                                            arrN3
+                                        ]
                                     });
                                 })
                             });
@@ -149,7 +161,7 @@ module.exports = (IMPORTS) => {
                 }
             })
         },
-        applyModule10: (arrN) => {
+        applyModule10: (arrN, mode) => {
             return new Promise((resolve, reject) => {
 
                 let aux = true,
@@ -174,7 +186,7 @@ module.exports = (IMPORTS) => {
                     if (product >= 100) {
                         let reduced = obj.reduceNumber(product.toString());
                         sum = sum + reduced;
-                         //console.log("El numero " + product + " fue reducido a:" + reduced)
+                        //console.log("El numero " + product + " fue reducido a:" + reduced)
                     } else {
                         sum = sum + product;
                     }
@@ -182,9 +194,12 @@ module.exports = (IMPORTS) => {
                     aux = !aux;
 
                     if (loopCounter == arrN.length) {
-                        //let module = sum % 10;
-                        let module = sum % 10;
-                        console.log("module = " + sum + "%" + 10 + " = " + module);
+
+                        let operator = (mode == 'modulo') ? " % " : " / ",
+                            module = (mode == 'modulo') ? (sum % 10) : Math.round((sum / 10));
+
+                        console.log(mode + " : " + sum + operator + 10 + " = " + module);
+
                         if (module > 0) {
                             let substract = 10 - module;
                             substract = (substract < 0) ? substract * -1 : substract;
@@ -212,7 +227,7 @@ module.exports = (IMPORTS) => {
             return newNumber;
 
         },
-        getNationalAndPaleNumbers: (params) => {
+        getNationalNumbers: (params) => {
             return new Promise((resolve, reject) => {
                 let day = parseInt(params.day),
                     values = Object.values(params.digits),
@@ -233,21 +248,37 @@ module.exports = (IMPORTS) => {
             let newNumbers = [];
             for (let i = 0; i < numbers.length; i++) {
                 let current = numbers[i].toString();
-                console.log("posicion "+i+" sera eliminada del string: "+current);
-                newNumbers.push(obj.removeByIndex(current, (i+1)));
+                console.log("posicion " + i + " sera eliminada del string: " + current);
+                newNumbers.push(obj.removeByIndex(current, (i + 1)));
             }
             return newNumbers;
         },
         removeByIndex: (str, index) => {
-            if(str.length>2){
+            if (str.length > 2) {
                 if (index == 0) {
                     return str.slice(1)
                 } else {
                     return str.slice(0, index - 1) + str.slice(index);
                 }
-            }else{
+            } else {
                 return str;
             }
+        },
+        getSplitNumberByTwo: (DATE) => {
+            return DATE.valueOf().toString().split(/(..)/).filter(function (a) {
+                return a !== '';
+            });
+        },
+        getRandom: (min, max) => {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        },
+        generateRand24H: (LOWER_BOUND, UPPER_BOUND) => {
+            setInterval(function () {
+                let rand = obj.getRandom(LOWER_BOUND, UPPER_BOUND);
+            }, 1000 * 60 * 60 * 24);
+        },
+        makeCombinations: () => {
+
         }
     };
 
