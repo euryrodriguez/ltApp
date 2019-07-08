@@ -29,5 +29,4 @@ exports.rp = rp;
 exports.request = request;
 exports.connection = connection;
 exports.pathsJSONS = pathsJSONS;
-exports.inquirer = inquirer;
 
