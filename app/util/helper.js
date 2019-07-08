@@ -108,6 +108,7 @@ module.exports = (IMPORTS) => {
                 let arrN1 = [],
                     arrN2 = [],
                     arrN3 = [],
+                    result = [],
                     averageN1 = 0,
                     averageN2 = 0,
                     averageN3 = 0,
@@ -133,14 +134,13 @@ module.exports = (IMPORTS) => {
                          console.log("Promedio numero 3:" + parseInt(averageN3 / lengthly).toString());*/
 
                         obj.applyModule10(arrN1, mode).then((resultArrN1) => {
+                            result.push(resultArrN1);
                             obj.applyModule10(arrN2, mode).then((resultArrN2) => {
+                                result.push(resultArrN2);
                                 obj.applyModule10(arrN3, mode).then((resultArrN3) => {
+                                    result.push(resultArrN3);
                                     resolve({
-                                        result: {
-                                            resultArrN1: resultArrN1,
-                                            resultArrN2: resultArrN2,
-                                            resultArrN3: resultArrN3,
-                                        },
+                                        result: result,
                                         average: [
                                             parseInt(averageN1 / lengthly),
                                             parseInt(averageN2 / lengthly),
@@ -167,7 +167,7 @@ module.exports = (IMPORTS) => {
                 let aux = true,
                     sum = 0,
                     index = 0,
-                    finalObject = {},
+                    finalValue = 0,
                     loopCounter = 1;
 
                 for (let num of arrN) {
@@ -203,11 +203,11 @@ module.exports = (IMPORTS) => {
                         if (module > 0) {
                             let substract = 10 - module;
                             substract = (substract < 0) ? substract * -1 : substract;
-                            finalObject['number'] = substract;
+                            finalValue = substract;
                         } else {
-                            finalObject['number'] = module;
+                            finalValue = module;
                         }
-                        resolve(finalObject);
+                        resolve(finalValue);
                     }
 
                     loopCounter++;
@@ -230,11 +230,11 @@ module.exports = (IMPORTS) => {
         getNationalNumbers: (params) => {
             return new Promise((resolve, reject) => {
                 let day = parseInt(params.day),
-                    values = Object.values(params.digits),
+                    values = params.digits,
                     products = [];
                 values.forEach((element, index) => {
                     let multiply = 0,
-                        currentNumber = parseInt(element.number);
+                        currentNumber = parseInt(element);
                     multiply = (day * currentNumber);
                     products.push(multiply);
                     //console.log(currentNumber + " * " + day + " = " + (multiply));
@@ -277,7 +277,78 @@ module.exports = (IMPORTS) => {
                 let rand = obj.getRandom(LOWER_BOUND, UPPER_BOUND);
             }, 1000 * 60 * 60 * 24);
         },
-        makeCombinations: () => {
+        getArrNumberOfDate: (TODAY) => {
+            return Number(TODAY).toString().split(/(..)/).filter(function (a) {
+                return a !== '';
+            });
+        },
+        getCombinations: async (arrNumbers) => {
+            let result = [],
+                collection = [];
+            arrNumbers.forEach((element, index) => {
+                element.forEach((element, i) => {
+                    //Se almacenan todos los numeros en esta variable
+                    collection.push(parseInt(element));
+                    if ((index + 1) == arrNumbers.length) {
+                        obj.makeCombinations(collection).then((response) => {
+                            result[index] = response;
+                        })
+                    }
+                });
+            });
+            return result;
+        },
+        makeCombinations: (collection) => {
+            return new Promise((resolve, reject) => {
+                let length = collection.length,
+                    combinations = [];
+                collection.forEach((element, index) => {
+                    collection.forEach((current, i) => {
+                        if (parseInt(current) != parseInt(element)) {
+                            let pair = [element, current], //Crear par de numeros
+                                invert = obj.invertPair(pair); //Invertir los numeros
+                            if (!obj.ifCombinationExists(pair, combinations)) {
+                                if (pair != null) {
+                                    combinations.push(pair);
+                                }
+                            }
+                            if (!obj.ifCombinationExists(invert, combinations)) {
+                                if (invert != null) {
+                                    combinations.push(invert);
+                                }
+                            }
+
+                        } else {
+                            // console.log(current + " es igual que: "+element);
+                        }
+                    });
+                    if ((index + 1) == length) {
+                        resolve(combinations);
+                    }
+                });
+            });
+        },
+        ifCombinationExists: (pair, collection) => {
+            let found = false;
+            collection.forEach((current, i) => {
+                let n1 = current[0],
+                    n2 = current[1];
+                if (n1 == pair[0] && n2 == pair[1] || n1 == pair[1] && n2 == pair[0]) {
+                    /*  console.log("--------------------------------------------------------------------------------------------");
+                      console.log("n1: (" + n1 + " == pair[0] :" + pair[0] + ") , (n2: " + n2 + " == pair[1]: " + pair[1] + ")");
+                      console.log("n1: (" + n1 + " == pair[1] :" + pair[1] + ") , (n2: " + n2 + " == pair[0]: " + pair[0] + ")");*/
+                    found = true;
+                } else {
+                    //console.log(pair[0] + " y " + pair[1] + " no existen en la coleccion, los elementos actuales son: " + n1 + " y " + n2);
+                }
+            });
+            return found;
+        },
+        invertPair: (pair) => {
+            return [
+                pair[0].toString().split('').reverse().join(''),
+                pair[1].toString().split('').reverse().join('')
+            ];
 
         }
     };
