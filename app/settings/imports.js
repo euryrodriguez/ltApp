@@ -4,8 +4,6 @@ const parse = require('node-html-parser');
 const fs = require('fs');
 const rp = require('request-promise');
 const request = require('request');
-const inquirer = require('inquirer');
-
 
 const connection = require("./conexion").con;
 const pathsJSONS = {
