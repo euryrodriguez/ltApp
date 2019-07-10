@@ -42,6 +42,7 @@ let init = async () => {
         numberTodayForNow = parseInt(arrNumbers[2]);
     console.log(arrNumbers);
     await getNationalNumbers(numberTodayForNow);
+
 };
 
 let getNationalNumbers = async (numberToday) => {
