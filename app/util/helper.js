@@ -248,8 +248,8 @@ module.exports = (IMPORTS) => {
             let newNumbers = [];
             for (let i = 0; i < numbers.length; i++) {
                 let current = numbers[i].toString();
-                console.log("posicion " + i + " sera eliminada del string: " + current);
-                newNumbers.push(obj.removeByIndex(current, (i + 1)));
+                console.log("posicion 0 sera eliminada del string: " + current);
+                newNumbers.push(obj.removeByIndex(current, 1));
             }
             return newNumbers;
         },
