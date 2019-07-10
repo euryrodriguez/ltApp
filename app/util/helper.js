@@ -287,8 +287,13 @@ module.exports = (IMPORTS) => {
                 collection = [];
             arrNumbers.forEach((element, index) => {
                 element.forEach((element, i) => {
+                    let currentNumber = element;
+                    if (currentNumber.length > 2) {
+                        currentNumber = currentNumber.slice(1, currentNumber.length);
+                        console.log("El numero paso de ser: " + element + ", a ser: " + currentNumber);
+                    }
                     //Se almacenan todos los numeros en esta variable
-                    collection.push(parseInt(element));
+                    collection.push(parseInt(currentNumber));
                     if ((index + 1) == arrNumbers.length) {
                         obj.makeCombinations(collection).then((response) => {
                             result[index] = response;
