@@ -14,9 +14,11 @@ CONNECTION.connect();
 
 let init = async () => {
 
-    let rand = HELPER.getRandom(2, 22);
+    let rand = HELPER.getRandom(9, 22);
 
-    rand = (rand < 10) ? rand * 5 : rand;
+    rand = (rand < 10) ? Math.round(((rand * 2) * 3.14)) : Math.round((rand * 3.14) / 2);
+
+    //console.log("Ahora el numero rand es: " + rand);
 
     let numberFromJSON = (typeof TODAYJSON.number !== "undefined") ? TODAYJSON.number : rand,
         dateFromJSON = (typeof TODAYJSON.date !== "undefined") ? TODAYJSON.date : TODAYSTR,
@@ -25,7 +27,7 @@ let init = async () => {
     if (dateFromJSON == TODAYSTR) {
         console.log("Fechas iguales");
         numberToday = numberFromJSON;
-        console.log("Numero aleatorio del dia: "+numberToday);
+        console.log("Numero aleatorio del dia: " + numberToday);
     } else {
         numberToday = rand;
         IMPORTS.fs.writeFileSync(TODAYJSONPATH, JSON.stringify({
