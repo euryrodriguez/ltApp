@@ -20,7 +20,7 @@
     "datatables.net-dt": "^1.10.19",
     "express": "^4.16.4",
     "font-awesome": "^4.7.0",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "ladda": "^2.0.1",
     "node-html-parser": "^1.1.15",
     "popper.js": "^1.15.0",
