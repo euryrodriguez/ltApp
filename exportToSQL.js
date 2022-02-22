@@ -17,6 +17,20 @@ CONNECTION.connect();
 
 table = 'superlotomas';
 
+/*CREATE TABLE `lotoapp`.`superlotomas`(
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `n1` INT NOT NULL,
+    `n2` INT NOT NULL,
+    `n3` INT NOT NULL,
+    `n4` INT NOT NULL,
+    `n5` INT NOT NULL,
+    `n6` INT NOT NULL,
+    `n7` INT NOT NULL,
+    `n8` INT NOT NULL,
+    `nd` DATE NOT NULL,
+    PRIMARY KEY(`id`)
+) ENGINE = INNODB;*/
+
 CONNECTION.query(`TRUNCATE TABLE '${table}';`,
     function (error, results, fields) {
 
@@ -44,7 +58,7 @@ for (let i = 0; i < LOTO.length; i++) {
             connection: CONNECTION,
             numbersObj: numbersObj,
             dateSQL: dateSQL,
-            dateESP: dateESP
+            dateENG: dateENG
         };
 
     lotoPromises.push(HELPER.insertLotoRecords(params));
@@ -63,7 +77,10 @@ for (let i = 0; i < LOTO.length; i++) {
 
 /*************************************************************************************/
 
+
 table = 'pega3mas';
+
+//CREATE TABLE `lotoapp`.`pega3mas` ( `id` INT NOT NULL AUTO_INCREMENT , `n1` INT NOT NULL , `n2` INT NOT NULL , `n3` INT NOT NULL , `nd` DATE NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
 CONNECTION.query(`TRUNCATE TABLE '${table}';`,
     function (error, results, fields) {
@@ -87,7 +104,7 @@ for (let i = 0; i < PEGA3.length; i++) {
             connection: CONNECTION,
             numbersObj: numbersObj,
             dateSQL: dateSQL,
-            dateESP: dateESP
+            dateENG: dateENG
         };
 
     pega3Promises.push(HELPER.insertRecords(params));
@@ -106,8 +123,9 @@ for (let i = 0; i < PEGA3.length; i++) {
 
 
 /**************************************************************************************/
-
 table = 'quiniela';
+
+//CREATE TABLE `lotoapp`.`quiniela` ( `id` INT NOT NULL AUTO_INCREMENT , `n1` INT NOT NULL , `n2` INT NOT NULL , `n3` INT NOT NULL , `nd` DATE NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
 CONNECTION.query(`TRUNCATE TABLE '${table}';`,
     function (error, results, fields) {
@@ -131,7 +149,7 @@ for (let i = 0; i < QUINIELA.length; i++) {
             connection: CONNECTION,
             numbersObj: numbersObj,
             dateSQL: dateSQL,
-            dateESP: dateESP
+            dateENG: dateENG
         };
 
     quinielaPromises.push(HELPER.insertRecords(params));
@@ -150,6 +168,8 @@ for (let i = 0; i < QUINIELA.length; i++) {
 /**************************************************************************************/
 
 table = 'national';
+
+//CREATE TABLE `lotoapp`.`national`( `id` INT NOT NULL AUTO_INCREMENT, `n1` INT NOT NULL, `n2` INT NOT NULL, `n3` INT NOT NULL, `nd` DATE NOT NULL, PRIMARY KEY(`id`) ) ENGINE = INNODB;
 
 CONNECTION.query(`TRUNCATE TABLE '${table}';`,
     function (error, results, fields) {
@@ -173,7 +193,7 @@ for (let i = 0; i < NATIONAL.length; i++) {
             connection: CONNECTION,
             numbersObj: numbersObj,
             dateSQL: dateSQL,
-            dateESP: dateESP
+            dateENG: dateENG
         };
 
     nationalPromises.push(HELPER.insertRecords(params));

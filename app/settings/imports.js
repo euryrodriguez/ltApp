@@ -10,8 +10,8 @@ const inquirer = require('inquirer');
 
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'phpmyadmin',
-    password: '123456',
+    user: 'root',
+    password: '',
     database: 'lotoApp'
 });
 

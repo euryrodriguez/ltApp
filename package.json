@@ -20,8 +20,10 @@
     "datatables.net-dt": "^1.10.19",
     "express": "^4.16.4",
     "font-awesome": "^4.7.0",
+    "inquirer": "^8.2.0",
     "jquery": "^3.4.0",
     "ladda": "^2.0.1",
+    "mysql": "^2.18.1",
     "node-html-parser": "^1.1.15",
     "popper.js": "^1.15.0",
     "request-promise": "^4.2.4"
