@@ -22,14 +22,13 @@ module.exports = (IMPORTS) => {
                     pega3 = blockPast[3],
                     loto = blockPast[6],
                     quinielaPale = blockPast[4];
-
                 //En el mismo orden que la constante pathsJSONS
                 const sections = [national, loto, pega3, quinielaPale];
                 const bloque = sections[params.numero];
 
                 if (typeof bloque != "undefined") {
 
-                    let sessionDetails = bloque.querySelector(".session-details"),
+                    let sessionDetails = bloque.querySelector(".session-date"),
                         sessionDetailsText = sessionDetails.rawText,
                         gameScores = bloque.querySelector(".game-scores"),
                         numbers = gameScores.rawText;
@@ -48,11 +47,11 @@ module.exports = (IMPORTS) => {
                         params.jsonData.push(objectNumber);
                     }
 
-                    IMPORTS.fs.writeFileSync(params.lottery.path, JSON.stringify(params.jsonData), function (err) {
+                   /* IMPORTS.fs.writeFileSync(params.lottery.path, JSON.stringify(params.jsonData), function (err) {
                         if (err) {
                             return console.error(err);
                         }
-                    });
+                    });*/
 
                 }
             }
