@@ -30,10 +30,15 @@ module.exports = (IMPORTS) => {
 
                     let sessionDetails = bloque.querySelector(".session-date"),
                         sessionDetailsText = sessionDetails.rawText,
-                        gameScores = bloque.querySelector(".game-scores"),
-                        numbers = gameScores.rawText;
+                        gameScores = bloque.querySelector(".game-scores")
+                        numbersHTMLCollection = gameScores.querySelectorAll('.score');
 
-                    numbers = numbers.match(/\d+/g).map(n => parseInt(n));
+                    let numbers = [];
+                    
+                    numbersHTMLCollection.forEach(element => {
+                        numbers.push(parseInt(element.rawText));
+                    });
+                       
                     sessionDetailsText = sessionDetailsText.trim();
 
                     let objectNumber = {
