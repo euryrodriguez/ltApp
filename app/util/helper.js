@@ -52,11 +52,11 @@ module.exports = (IMPORTS) => {
                         params.jsonData.push(objectNumber);
                     }
 
-                   /* IMPORTS.fs.writeFileSync(params.lottery.path, JSON.stringify(params.jsonData), function (err) {
+                    IMPORTS.fs.writeFileSync(params.lottery.path, JSON.stringify(params.jsonData), function (err) {
                         if (err) {
                             return console.error(err);
                         }
-                    });*/
+                    });
 
                 }
             }

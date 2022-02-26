@@ -33,8 +33,8 @@ RL.on('line', function (line) {
     process.exit(0);
 });
 
-let start = new Date("01/02/2019"),
-    end = new Date("02/10/2019"),
+let start = new Date("06/09/2019"),
+    end = new Date("12/31/2019"),
     loop = new Date(start),
     loopCounter = 0,
     day_as_milliseconds = 86400000,
