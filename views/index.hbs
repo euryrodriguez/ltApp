@@ -1,5 +1,8 @@
-<div class="container mt-3">
-    <div class="card">
+<div class="container-fluid pl-3 pr-3">
+    <br>
+  <div class="row">
+      <div class="col-md-10">
+            <div class="card">
         <div class="card-header">
             <h3 class="font-weight-bold">Números quiniela por rango de fecha</h3>
         </div>
@@ -9,13 +12,13 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="dateFrom">Desde</label>
-                            <input type="date" class="form-control" value="2019-12-01" id="dateFrom" required>
+                            <input type="date" class="form-control" value="2020-02-01" id="dateFrom" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="dateTo">Hasta</label>
-                            <input type="date" class="form-control" value="2022-02-26" id="dateTo" required>
+                            <input type="date" class="form-control" value="2020-02-29" id="dateTo" required>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -43,6 +46,7 @@
                             <th scope="col">Segundo</th>
                             <th scope="col">Tercera</th>
                             <th scope="col">Fecha</th>
+                            <th scope="col">Opciones</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -50,4 +54,10 @@
             </div>
         </div>
     </div>
+      </div>
+      <div class="col-md-2">
+          <h5 class="text-center">Números que mas salieron en ese rango de fecha</h2>
+          <ul class="list-group" id="frequently-list"></ul>
+      </div>
+  </div>
 </div>

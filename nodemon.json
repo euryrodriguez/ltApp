@@ -1,3 +1,8 @@
 {
-  "ignore": ["app/data/data.json"]
+  "ignore": [
+    "app/data/loto.json",
+    "app/data/national.json",
+    "app/data/pega3.json",
+    "app/data/quinielaPale.json"
+  ]
 }
