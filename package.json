@@ -17,7 +17,7 @@
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.3.1",
     "brain.js": "^1.6.1",
-    "datatables.net": "^1.10.19",
+    "datatables.net": "^1.11.3",
     "datatables.net-dt": "^1.10.19",
     "express": "^4.17.3",
     "express-handlebars": "^5.3.2",
