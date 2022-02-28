@@ -95,6 +95,11 @@ module.exports = (IMPORTS) => {
                         resolve(true);
                     });
             });
+        },
+        prettyDate:(uglyDate) =>{
+            const parts = uglyDate.split('T');
+            const dateEng = (parts.length>0) ? parts[0]:'';
+            return dateEng.split('-').reverse().join('-');
         }
     };
 

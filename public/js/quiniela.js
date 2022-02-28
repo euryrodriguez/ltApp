@@ -61,7 +61,10 @@ class Quiniela{
                     },
                     {
                         "data":(data)=>{
-                            return prettyDate(data.nd);
+                            let dateObject = new Date(data.nd);
+                            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                            let longDate = dateObject.toLocaleDateString("es-ES", options).replace(/\//g, "-");
+                            return longDate;
                         },
                         "width":"15%",
                         "className": ""
