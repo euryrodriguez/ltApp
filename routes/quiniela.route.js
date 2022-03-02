@@ -11,4 +11,9 @@ router.get('/getNumbers/:from/:to', async (req, res)=>{
     res.send(response);
 });
 
+router.get('/getNumbersByDate/:date', async (req, res)=>{
+    const response = await quinielaControllers.getNumbersByDate(req.params.date);
+    res.send(response);
+});
+
 module.exports = router;

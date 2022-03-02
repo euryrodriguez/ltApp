@@ -132,6 +132,18 @@ class Quiniela{
             });
         }
     }
+    async numbersFromTodayPast(numbers){
+        let n1Str = '';
+        $(numbers).each(function(i, item){
+            let numberObj = (item.length>0) ? item[0] : [];
+            console.log(item);
+            console.log(numberObj);
+            let n1 = numberObj.n1.toString();
+            n1Str+=n1;
+        }).promise().done(function(){
+            console.log(n1Str);
+        });
+    }
 }
 
 const quiniela = new Quiniela();
@@ -211,6 +223,31 @@ document.addEventListener('DOMContentLoaded', function(){
             $trRowParent.after(newTr);    
         }
         
+    });
+
+    $('#btn-guess').on('click', async function(){
+        let numbers = [];
+        let responses = [];
+        let date = new Date();
+        let year = date.getFullYear() - 1;
+        let day = date.getDate();
+        let month = date.getMonth() + 1
+        day = (day<10) ? `0${day}` : day;
+        month = (month<10) ? `0${month}` : month;
+        for(let i = 5; i>0; i--){
+            let todayPastYear = `${year}-${month}-${day}`;
+            const url = `/quinielas/getNumbersByDate/${todayPastYear}`;
+            let response = await fetch(url);
+            responses.push(response);
+            year = year - 1;
+        }
+        responses.forEach(async function(response, i){
+            let json = await response.json();
+            numbers.push(json);
+            if((i + 1) == responses.length){
+                quiniela.numbersFromTodayPast(numbers);
+            }
+        });      
     });
     
 });

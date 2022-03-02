@@ -1,63 +1,87 @@
 <div class="container-fluid pl-3 pr-3">
     <br>
-  <div class="row">
-      <div class="col-md-10">
+    <div class="row">
+        <div class="col-md-7">
             <div class="card">
-        <div class="card-header">
-            <h3 class="font-weight-bold">Números quiniela por rango de fecha</h3>
-        </div>
-        <div class="card-body">
-            <form action="" id="quinielaForm">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="dateFrom">Desde</label>
-                            <input type="date" class="form-control" value="2021-03-01" id="dateFrom" required>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="dateTo">Hasta</label>
-                            <input type="date" class="form-control" value="2021-03-31" id="dateTo" required>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="btn-query">Buscar</label>
-                            <br>
-                            <button type="button" class="btn btn-primary" id="btn-query">
-                                Buscar <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <hr>
-                    </div>
-                    
+                <div class="card-header">
+                    <h3 class="font-weight-bold">Números quiniela por rango de fecha</h3>
                 </div>
-            </form>
-            
-            <div class="col-md-12">
-                <table class="table table-sm table-hover display nowrap dtable" cellspacing="0" width="100%" id="list-quiniela">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Primera</th>
-                            <th scope="col">Segundo</th>
-                            <th scope="col">Tercera</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <div class="card-body">
+                    <form action="" id="quinielaForm">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="dateFrom">Desde</label>
+                                    <input type="date" class="form-control" value="2021-03-01" id="dateFrom" required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="dateTo">Hasta</label>
+                                    <input type="date" class="form-control" value="2021-03-31" id="dateTo" required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="btn-query">Buscar</label>
+                                    <br>
+                                    <button type="button" class="btn btn-primary" id="btn-query">
+                                        Buscar <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                            
+                        </div>
+                    </form>
+                    
+                    <div class="col-md-12">
+                        <table class="table table-sm table-hover display nowrap dtable" cellspacing="0" width="100%" id="list-quiniela">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Primera</th>
+                                    <th scope="col">Segundo</th>
+                                    <th scope="col">Tercera</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <h5 class="text-center">Números que mas salieron en ese rango de fecha</h2><ul class="list-group" id="frequently-list"></ul>
+            <br>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="font-weight-bold">Generar Números</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="" id="generateNumbers">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="btn-guess">Generar</label>
+                                        <br>
+                                        <button type="button" class="btn btn-primary" id="btn-guess">
+                                            Buscar <i class="fas fa-random"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <hr>
+                                </div> 
+                            </div>
+                        </form>
+                        <div class="col-md-12" id="guess-result"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-      </div>
-      <div class="col-md-2">
-          <h5 class="text-center">Números que mas salieron en ese rango de fecha</h2>
-          <ul class="list-group" id="frequently-list"></ul>
-      </div>
-  </div>
-</div>

@@ -26,6 +26,29 @@ class QuinielaControllers{
             }
         });
     }
+
+    async getNumbersByDate(strDate){
+        let dateObject = new Date(strDate);
+        let invalidStr = 'Invalid Date';
+        return new Promise(async (resolve)=>{
+            try {
+                if(dateObject.toString() == invalidStr){
+                   resolve({ status : 0, message: 'El formato de la fecha no es correcto!'})
+                } 
+                const query = `SELECT * FROM quiniela WHERE nd = '${strDate}';`; 
+                console.log(query);
+                CONNECTION.query(query,function(err, data){
+                    if(err){
+                        console.error(err);
+                    }
+                    resolve(data);
+                });       
+            } catch (error) {
+                console.error(error);
+                resolve([]);
+            }
+        });
+    }
 }
 
 module.exports = new QuinielaControllers();

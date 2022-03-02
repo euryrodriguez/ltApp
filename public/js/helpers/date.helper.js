@@ -13,6 +13,9 @@ const getDate = (lang = 'es', addDays = 0, substractDays = 0)=>{
         day = day * Math.sign(day);
         month = month - 1;
     }
+    if(day<10){
+        day = `0${day}`;
+    }  
     if(lang == 'es'){
         return (month < 10) ? `${day}-0${month}-${year}` : `${day}-${month}-${year}`;
     }else{
