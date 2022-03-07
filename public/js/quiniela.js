@@ -165,9 +165,9 @@ class Quiniela{
         let randomN2Reversed = reverseString(randomN2.toString(), '');
         
         numbers.push(randomN1);
-        numbers.push(randomN2);
+        //numbers.push(randomN2);
         numbers.push(parseInt(randomN1Reversed));
-        numbers.push(parseInt(randomN2Reversed));
+        //numbers.push(parseInt(randomN2Reversed));
         
         let lastYearNumbersObj = params.numbers[0][0];
         
