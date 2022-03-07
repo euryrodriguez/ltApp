@@ -133,16 +133,72 @@ class Quiniela{
         }
     }
     async numbersFromTodayPast(numbers){
+        const selfClass = this;
         let n1Str = '';
+        let n2Str = '';
+        let n3Str = '';
         $(numbers).each(function(i, item){
             let numberObj = (item.length>0) ? item[0] : [];
-            console.log(item);
             console.log(numberObj);
             let n1 = numberObj.n1.toString();
+            let n2 = numberObj.n2.toString();
+            let n3 = numberObj.n3.toString(); 
             n1Str+=n1;
+            n2Str+=n2;
+            n3Str+=n3;
         }).promise().done(function(){
-            console.log(n1Str);
+            let digits = [];
+            digits.push(getModule10(n1Str));
+            digits.push(getModule10(n2Str));
+            digits.push(getModule10(n3Str));
+            selfClass.workWithNumbers({
+                digits,
+                numbers
+            });
         });
+    }
+     workWithNumbers(params){
+        let numbers = [];
+        let randomN1 = randomIntFromInterval(0, 50);
+        let randomN2 = randomIntFromInterval(51, 100);
+        let randomN1Reversed = reverseString(randomN1.toString(), '');
+        let randomN2Reversed = reverseString(randomN2.toString(), '');
+        
+        numbers.push(randomN1);
+        numbers.push(randomN2);
+        numbers.push(parseInt(randomN1Reversed));
+        numbers.push(parseInt(randomN2Reversed));
+        
+        let lastYearNumbersObj = params.numbers[0][0];
+        
+        numbers.push(lastYearNumbersObj.n1 - params.digits[0] + params.digits[1]);
+        
+      /*  numbers.push(params.digits[0]);
+        numbers.push(params.digits[1]);
+        numbers.push(params.digits[2]);*/
+
+        this.combineNumbers(numbers);
+    }
+    
+    async combineNumbers(numbers = []){
+        const selfClass = this;
+        let combinations = [];
+        numbers.forEach(function(a){
+            numbers.forEach(function(b){
+                if(a != b){
+                    let pair = {a, b};
+                    if(selfClass.checkIfObjectExist(combinations, pair)){
+                       console.log(`Numeros ${a}, ${b} ya estan en el arreglo: `); 
+                    }else{
+                        combinations.push(pair);
+                    }
+                }  
+            });
+        });
+        console.log(combinations);
+    }
+    checkIfObjectExist(arr = [], obj = {}){
+        return arr.find(item => item.a == obj.b);
     }
 }
 
