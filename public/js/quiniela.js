@@ -88,7 +88,7 @@ class Quiniela{
     }
     async getNumbersHistory(numbers){
         //const url = `/quinielas/getNumbersHistory/{}`;
-
+        
     }
     getMostFrequently(data){
         let numbers = [];
@@ -119,7 +119,7 @@ class Quiniela{
                 counterObject[n3] = 1;
             }
         });
-     
+        
         for(let number in counterObject){
             let count = counterObject[number];
             if(count >= 3){
@@ -157,30 +157,24 @@ class Quiniela{
             });
         });
     }
-     workWithNumbers(params){
-        let numbers = [];
-        let randomN1 = randomIntFromInterval(0, 50);
-        let randomN2 = randomIntFromInterval(51, 100);
-        let randomN1Reversed = reverseString(randomN1.toString(), '');
-        let randomN2Reversed = reverseString(randomN2.toString(), '');
-        
-        numbers.push(randomN1);
-        //numbers.push(randomN2);
-        numbers.push(parseInt(randomN1Reversed));
-        //numbers.push(parseInt(randomN2Reversed));
-        
-        let lastYearNumbersObj = params.numbers[0][0];
-        
-        numbers.push(lastYearNumbersObj.n1 - params.digits[0] + params.digits[1]);
-        
-      /*  numbers.push(params.digits[0]);
-        numbers.push(params.digits[1]);
-        numbers.push(params.digits[2]);*/
-
-        this.combineNumbers(numbers);
+    workWithNumbers(params){
+        let result = parseInt(this.calculate());
+        console.log(result);        
+        let numbers = result.toString().match(/.{1,2}/g);
+        console.log(numbers);
+    }
+    calculate(){
+        const now = new Date();
+        const n = now.getDate();
+        const month = now.getMonth() + 1;
+        const week = 7;
+        const months = 12;
+        const year = now.getFullYear();
+        let addition = n + month;
+        return ((year * addition) * week) * (months * (year * n));
     }
     
-    async combineNumbers(numbers = []){
+    combineNumbers(numbers = []){
         const selfClass = this;
         let combinations = [];
         numbers.forEach(function(a){
@@ -188,7 +182,7 @@ class Quiniela{
                 if(a != b){
                     let pair = {a, b};
                     if(selfClass.checkIfObjectExist(combinations, pair)){
-                       console.log(`Numeros ${a}, ${b} ya estan en el arreglo: `); 
+                        console.log(`Numeros ${a}, ${b} ya estan en el arreglo: `); 
                     }else{
                         combinations.push(pair);
                     }
@@ -196,6 +190,7 @@ class Quiniela{
             });
         });
         console.log(combinations);
+        return combinations;
     }
     checkIfObjectExist(arr = [], obj = {}){
         return arr.find(item => item.a == obj.b);
@@ -262,9 +257,9 @@ document.addEventListener('DOMContentLoaded', function(){
         }else{
             $selector.html(`<i class="fas fa-angle-down"></i>`); 
         }
-
+        
         if($newTr.length>0){
-           $newTr.toggleClass('d-none');
+            $newTr.toggleClass('d-none');
         }else{
             quiniela.getNumbersHistory(dataNumbers);
             let newTr = `
@@ -280,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function(){
         }
         
     });
-
+    
     $('#btn-guess').on('click', async function(){
         let numbers = [];
         let responses = [];
