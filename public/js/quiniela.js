@@ -140,17 +140,20 @@ class Quiniela{
         $(numbers).each(function(i, item){
             let numberObj = (item.length>0) ? item[0] : [];
             console.log(numberObj);
-            let n1 = numberObj.n1.toString();
-            let n2 = numberObj.n2.toString();
-            let n3 = numberObj.n3.toString(); 
-            n1Str+=n1;
-            n2Str+=n2;
-            n3Str+=n3;
+            if(numberObj.n1 != null){
+                let n1 = numberObj.n1.toString();
+                let n2 = numberObj.n2.toString();
+                let n3 = numberObj.n3.toString(); 
+                n1Str+=n1;
+                n2Str+=n2;
+                n3Str+=n3; 
+            }      
         }).promise().done(function(){
             let digits = [];
             digits.push(getModule10(n1Str));
             digits.push(getModule10(n2Str));
             digits.push(getModule10(n3Str));
+            console.log(digits);
             selfClass.workWithNumbers({
                 digits,
                 numbers
@@ -158,20 +161,28 @@ class Quiniela{
         });
     }
     workWithNumbers(params){
+        const $target = $('#guess-result');
         let result = parseInt(this.calculate());
-        console.log(result);        
-        let numbers = result.toString().match(/.{1,2}/g);
+        console.log(result);
+        let reverse = reverseString(result.toString(), '');
+        console.log(reverse);
+        let numbers = reverse.toString().match(/.{1,2}/g);
         console.log(numbers);
+        let combinations = this.combineNumbers(numbers);
+        $target.append(JSON.stringify(combinations));
     }
     calculate(){
         const now = new Date();
-        const n = now.getDate();
+        const today = now.getDate() -1;
         const month = now.getMonth() + 1;
         const week = 7;
         const months = 12;
         const year = now.getFullYear();
-        let addition = n + month;
-        return ((year * addition) * week) * (months * (year * n));
+        const days = 365;
+        const pi = 3.14;
+        let dayAndMonth = (today * pi * year) / months;
+        //return (((days * dayAndMonth * month) * week) - (months * (days * today))) / pi;
+        return ((today * month  * year * 9999) * pi) / days;
     }
     
     combineNumbers(numbers = []){
@@ -189,7 +200,6 @@ class Quiniela{
                 }  
             });
         });
-        console.log(combinations);
         return combinations;
     }
     checkIfObjectExist(arr = [], obj = {}){
